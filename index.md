@@ -13,7 +13,7 @@
 
 **Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+[Link](url) and ![Image](http://200.201.11.151/images/logo.png)
 
 Para maiores detalhes acesse (https://github.com/rgcoelho01/points).
 
@@ -21,6 +21,6 @@ Para maiores detalhes acesse (https://github.com/rgcoelho01/points).
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rgcoelho01/points/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+### Contato
 
-Contato [rgcoelho AT uenp DOT edu DOT br].
+Email: [rgcoelho AT uenp DOT edu DOT br].
