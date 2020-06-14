@@ -1,4 +1,4 @@
-        function inser(){
+        function inserir(){
             var colaborador = document.getElementById("txtColaborador").value;
             var div = document.getElementById("divResultado");
              
