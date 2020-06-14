@@ -1,6 +1,6 @@
   function inserir(){
             let colaborador = document.getElementById("txtColaborador").value;
-            let div = document.getElementById("divResultado");
+            let div = document.getElementById("dvColaborador");
              
-            div.innerText = "<h1>" + colaborador +"</h1>"+ "\n";
+            div.innerText = colaborador + "\n";
         }
