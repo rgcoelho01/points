@@ -15,16 +15,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('index');
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/teste', function () {
     return view('teste');
 });
-Route::get('/dashboard', function(){
-    return view('dashboard');
-})->middleware('auth');
+
+Route::get('/datatables', function () {
+    return view('datatables');
+});
+
+
+Route::middleware('auth:sanctum')->get('/home','HomeController@index')->name('home');
+Route::middleware('auth:sanctum')->get('/ganhe','GanheController@index')->name('ganhe');
+Route::middleware('auth:sanctum')->get('/perfil','PerfilController@index')->name('perfil');
+Route::middleware('auth:sanctum')->get('/mensagens','MensagemController@index')->name('mensagens');
+Route::middleware('auth:sanctum')->post('/ganhe/{id}', 'GanheController@update');
+Route::middleware('auth:sanctum')->post('/perfil/{id}','PerfilController@update');
+Route::middleware('auth:sanctum')->get('/cursos/read','CursoController@read');
+
+Route::middleware('auth:sanctum')->get('/duvidas', function () {
+    return view('duvidas');
+})->name('duvidas');
+Route::middleware('auth:sanctum')->get('/contato', function () {
+    return view('contato');
+})->name('contato');

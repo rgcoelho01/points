@@ -26,8 +26,6 @@ class CreateQuestoesTable extends Migration
             $table->foreignId('disciplina_id')->constrained();
             $table->foreignId('curso_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();
-
         });
     }
 
@@ -38,9 +36,6 @@ class CreateQuestoesTable extends Migration
      */
     public function down()
     {
-        Schema::table('questoes', function (Blueprint $table) {
-            $table->dropSoftDeletes(); //add this line
-        });
         Schema::dropIfExists('questoes');
     }
 }

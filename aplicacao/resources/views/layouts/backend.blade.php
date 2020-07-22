@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Points - Bootstrap 4 Admin Template &amp; UI Framework</title>
-
-        <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-        <meta name="author" content="pixelcave">
+        <title>Points :: Sua moeda para o estudo render mais</title>
+        <meta name="keywords" content="Points, moeda, UENP, CLM, CCT, Sistemas de Informação, Ciência da Computação, Licenciatura em Computação, Programa de Vantagens" />
+      	<meta name="description" content="Points. sua moeda para o estudo render mais. Programa de vantagens da UENP/CLM/CCT para os alunos dos cursos de Sistemas de Informação e Ciência da Computação">
+        <meta name="author" content="Ricardo G. Coelho">
         <meta name="robots" content="noindex, nofollow">
 
         <!-- CSRF Token -->
@@ -26,6 +26,7 @@
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/corporate.css') }}"> -->
         @yield('css_after')
+<!--            <link rel="stylesheet" id="css-main" href="/css/codebase.min.css"> -->
 
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
@@ -76,38 +77,6 @@
             'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
         -->
         <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
-            <!-- Side Overlay-->
-            <aside id="side-overlay">
-                <!-- Side Header -->
-                <div class="content-header content-header-fullrow">
-                    <div class="content-header-section align-parent">
-                        <!-- Close Side Overlay -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-circle btn-dual-secondary align-v-r" data-toggle="layout" data-action="side_overlay_close">
-                            <i class="fa fa-times text-danger"></i>
-                        </button>
-                        <!-- END Close Side Overlay -->
-
-                        <!-- User Info -->
-                        <div class="content-header-item">
-                            <a class="img-link mr-5" href="javascript:void(0)">
-                                <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="">
-                            </a>
-                            <a class="align-middle link-effect text-primary-dark font-w600" href="javascript:void(0)">{{ Auth::user()->name }}</a>
-                        </div>
-                        <!-- END User Info -->
-                    </div>
-                </div>
-                <!-- END Side Header -->
-
-                <!-- Side Content -->
-                <div class="content-side">
-                    <p>
-                        Content..
-                    </p>
-                </div>
-                <!-- END Side Content -->
-            </aside>
             <!-- END Side Overlay -->
 
             <!-- Sidebar -->
@@ -174,63 +143,197 @@
                             </a>
                             <ul class="list-inline mt-10">
                                 <li class="list-inline-item">
-                                    <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="javascript:void(0)">{{ Auth::user()->name }}</a>
+                                    <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="javascript:void(0)" title="Perfil">{{ Auth::user()->name }}</a>
                                 </li>
                                 <li class="list-inline-item">
                                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                                     <a class="link-effect text-dual-primary-dark" data-toggle="layout" data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
-                                        <i class="si si-drop"></i>
+                                        <i class="si si-drop" title="Inverter Modo"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <a class="link-effect text-dual-primary-dark" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        <i class="si si-logout"></i>
+                                        <i class="si si-logout" title="Sair"></i>
                                     </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </li>
                             </ul>
                         </div>
                         <!-- END Visible only in normal mode -->
                     </div>
                     <!-- END Side User -->
-
+                    <!-- Menu para usuario Admin -->
+                    @role('admin')
                     <!-- Side Navigation -->
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
-                                    <i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span>
+                                <a class="{{ request()->is('home') ? ' active' : '' }}" href="/home">
+                                    <i class="si si-graph"></i><span class="sidebar-mini-hide">Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-main-heading">
-                                <span class="sidebar-mini-visible">VR</span><span class="sidebar-mini-hidden">Various</span>
-                            </li>
-                            <li class="{{ request()->is('pages/*') ? ' open' : '' }}">
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bulb"></i><span class="sidebar-mini-hide">Examples</span></a>
-                                <ul>
-                                    <li>
-                                        <a class="{{ request()->is('pages/datatables') ? ' active' : '' }}" href="/pages/datatables">DataTables</a>
-                                    </li>
-                                    <li>
-                                        <a class="{{ request()->is('pages/slick') ? ' active' : '' }}" href="/pages/slick">Slick Slider</a>
-                                    </li>
-                                    <li>
-                                        <a class="{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">Blank</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-main-heading">
-                                <span class="sidebar-mini-visible">MR</span><span class="sidebar-mini-hidden">More</span>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/cursos/read">
+                                    <i class="si si-star"></i><span class="sidebar-mini-hide">Cursos</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="/">
-                                    <i class="si si-globe"></i><span class="sidebar-mini-hide">Landing</span>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-basket"></i><span class="sidebar-mini-hide">Troque seus Points</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-envelope"></i><span class="sidebar-mini-hide">Mensagens</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-user"></i><span class="sidebar-mini-hide">Meu Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="si si-logout"></i><span class="sidebar-mini-hide">Sair</span>
+                                </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-main-heading">
+                                <span class="sidebar-mini-hidden">Ajuda</span>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-question"></i><span class="sidebar-mini-hide">Dúvidas Frequentes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-bubble"></i><span class="sidebar-mini-hide">Contato</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <!-- END Side Navigation -->
+                    @endrole
+                    <!-- Fim do menu Admin -->
+                    <!-- Menu para usuario Professor -->
+                    @role('professor')
+                    <!-- Side Navigation -->
+                    <div class="content-side content-side-full">
+                        <ul class="nav-main">
+                            <li>
+                                <a class="{{ request()->is('home') ? ' active' : '' }}" href="/home">
+                                    <i class="si si-graph"></i><span class="sidebar-mini-hide">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-star"></i><span class="sidebar-mini-hide">Ganhe Points</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-basket"></i><span class="sidebar-mini-hide">Troque seus Points</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-envelope"></i><span class="sidebar-mini-hide">Mensagens</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-user"></i><span class="sidebar-mini-hide">Meu Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="si si-logout"></i><span class="sidebar-mini-hide">Sair</span>
+                                </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-main-heading">
+                                <span class="sidebar-mini-hidden">Ajuda</span>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-question"></i><span class="sidebar-mini-hide">Dúvidas Frequentes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                                    <i class="si si-bubble"></i><span class="sidebar-mini-hide">Contato</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END Side Navigation -->
+                    @endrole
+                    <!-- Fim do menu Professor -->
+                    <!-- Menu para usuario Aluno -->
+                    @role('aluno')
+                    <!-- Side Navigation -->
+                    <div class="content-side content-side-full">
+                        <ul class="nav-main">
+                            <li>
+                                <a class="{{ request()->is('home') ? ' active' : '' }}" href="{{ route('home') }}">
+                                    <i class="si si-graph"></i><span class="sidebar-mini-hide">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('ganhe') ? ' active' : '' }}" href="{{ route('ganhe') }}">
+                                    <i class="si si-star"></i><span class="sidebar-mini-hide">Ganhe Points</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('troque') ? ' active' : '' }}" href="{{ url('/prestashop') }}">
+                                    <i class="si si-basket"></i><span class="sidebar-mini-hide">Troque seus Points</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('mensagens') ? ' active' : '' }}" href="{{ route('mensagens') }}">
+                                    <i class="si si-envelope"></i><span class="sidebar-mini-hide">Mensagens</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('perfil') ? ' active' : '' }}" href="{{ route('perfil') }}">
+                                    <i class="si si-user"></i><span class="sidebar-mini-hide">Meu Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="si si-logout"></i><span class="sidebar-mini-hide">Sair</span>
+                                </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-main-heading">
+                                <span class="sidebar-mini-hidden">Ajuda</span>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('duvidas') ? ' active' : '' }}" href="{{ route('duvidas') }}">
+                                    <i class="si si-question"></i><span class="sidebar-mini-hide">Dúvidas Frequentes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('contato') ? ' active' : '' }}" href="{{ route('contato') }}">
+                                    <i class="si si-bubble"></i><span class="sidebar-mini-hide">Contato</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END Side Navigation -->
+                    @endrole
+                    <!-- Fim do menu Aluno -->
                 </div>
                 <!-- Sidebar Content -->
             </nav>
@@ -249,14 +352,6 @@
                         </button>
                         <!-- END Toggle Sidebar -->
 
-                        <!-- Open Search Section -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <!-- END Open Search Section -->
-
-                        <!-- Layout Options (used just for demonstration) -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -327,126 +422,6 @@
 
                     <!-- Right Section -->
                     <div class="content-header-section">
-                        <!-- User Dropdown -->
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user d-sm-none"></i>
-                                <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span>
-                                <i class="fa fa-angle-down ml-5"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
-                                <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="si si-user mr-5"></i> Profile
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                    <span><i class="si si-envelope-open mr-5"></i> Inbox</span>
-                                    <span class="badge badge-primary">3</span>
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="si si-note mr-5"></i> Invoices
-                                </a>
-                                <div class="dropdown-divider"></div>
-
-                                <!-- Toggle Side Overlay -->
-                                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
-                                    <i class="si si-wrench mr-5"></i> Settings
-                                </a>
-                                <!-- END Side Overlay -->
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    <i class="si si-logout mr-5"></i> {{ __('Sair') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </div>
-                        <!-- END User Dropdown -->
-
-                        <!-- Notifications -->
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-flag"></i>
-                                <span class="badge badge-primary badge-pill">5</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right min-width-300" aria-labelledby="page-header-notifications">
-                                <h5 class="h6 text-center py-10 mb-0 border-b text-uppercase">Notifications</h5>
-                                <ul class="list-unstyled my-20">
-                                    <li>
-                                        <a class="text-body-color-dark media mb-15" href="javascript:void(0)">
-                                            <div class="ml-5 mr-15">
-                                                <i class="fa fa-fw fa-check text-success"></i>
-                                            </div>
-                                            <div class="media-body pr-10">
-                                                <p class="mb-0">You’ve upgraded to a VIP account successfully!</p>
-                                                <div class="text-muted font-size-sm font-italic">15 min ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-body-color-dark media mb-15" href="javascript:void(0)">
-                                            <div class="ml-5 mr-15">
-                                                <i class="fa fa-fw fa-exclamation-triangle text-warning"></i>
-                                            </div>
-                                            <div class="media-body pr-10">
-                                                <p class="mb-0">Please check your payment info since we can’t validate them!</p>
-                                                <div class="text-muted font-size-sm font-italic">50 min ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-body-color-dark media mb-15" href="javascript:void(0)">
-                                            <div class="ml-5 mr-15">
-                                                <i class="fa fa-fw fa-times text-danger"></i>
-                                            </div>
-                                            <div class="media-body pr-10">
-                                                <p class="mb-0">Web server stopped responding and it was automatically restarted!</p>
-                                                <div class="text-muted font-size-sm font-italic">4 hours ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-body-color-dark media mb-15" href="javascript:void(0)">
-                                            <div class="ml-5 mr-15">
-                                                <i class="fa fa-fw fa-exclamation-triangle text-warning"></i>
-                                            </div>
-                                            <div class="media-body pr-10">
-                                                <p class="mb-0">Please consider upgrading your plan. You are running out of space.</p>
-                                                <div class="text-muted font-size-sm font-italic">16 hours ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="text-body-color-dark media mb-15" href="javascript:void(0)">
-                                            <div class="ml-5 mr-15">
-                                                <i class="fa fa-fw fa-plus text-primary"></i>
-                                            </div>
-                                            <div class="media-body pr-10">
-                                                <p class="mb-0">New purchases! +$250</p>
-                                                <div class="text-muted font-size-sm font-italic">1 day ago</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center mb-0" href="javascript:void(0)">
-                                    <i class="fa fa-flag mr-5"></i> View All
-                                </a>
-                            </div>
-                        </div>
-                        <!-- END Notifications -->
-
-                        <!-- Toggle Side Overlay -->
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="side_overlay_toggle">
-                            <i class="fa fa-tasks"></i>
-                        </button>
-                        <!-- END Toggle Side Overlay -->
                     </div>
                     <!-- END Right Section -->
                 </div>
@@ -455,7 +430,7 @@
                 <!-- Header Search -->
                 <div id="page-header-search" class="overlay-header">
                     <div class="content-header content-header-fullrow">
-                        <form action="/dashboard" method="POST">
+                        <form action="/home" method="POST">
                             @csrf
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -511,9 +486,6 @@
 
         <!-- Codebase Core JS -->
         <script src="{{ mix('js/codebase.app.js') }}"></script>
-
-        <!-- Laravel Scaffolding JS -->
-        <!-- <script src="{{ mix('js/laravel.app.js') }}"></script> -->
 
         @yield('js_after')
     </body>

@@ -14,10 +14,17 @@ class CursoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function read()
     {
         $cursos = DB::table('cursos')->get();
-        return $this->sendData($cursos);
+        //return $this->sendData($cursos);
+        return view('cursos.read', ['cursos' => $cursos]);
     }
 
     /**
