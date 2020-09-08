@@ -33,6 +33,6 @@ class PerfilController extends Controller
             ->update(['name' => $request->becontactname , 'email' => $request->becontactemail]);
         $user = DB::table('users')
             ->where('id', Auth::id())->first();
-        return view('perfil', ['user' => $user]); 
+        return redirect()->route('home');
     }
 }

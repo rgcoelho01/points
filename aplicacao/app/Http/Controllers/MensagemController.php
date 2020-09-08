@@ -21,18 +21,26 @@ class MensagemController extends Controller
 
     public function index()
     {
-        $mensagens = DB::table('users')
-        ->where('id', Auth::id())->first();
-        return view('mensagem', ['mensagens' => $mensagens]); 
-
+        $mensagens = DB::table('mensagens')
+            ->join('users', 'users.id', '=', 'mensagens.de_user_id')
+            ->where([['para_user_id', Auth::id()],['ativo','=','1']])
+            ->select('mensagens.*', 'users.name')
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('mensagem', ['mensagens' => $mensagens]);
     }
 
     public function update(Request $request, $id){
-        $affected = DB::table('users')
-            ->where('id', $id)
-            ->update(['name' => $request->becontactname , 'email' => $request->becontactemail]);
-        $user = DB::table('users')
-            ->where('id', Auth::id())->first();
-        return view('perfil', ['user' => $user]); 
+    }
+
+    public function delete(Request $request){
+        $msgs = $request->delmsg;
+        foreach ($msgs as $mensagem) {
+            $questao = DB::table('mensagens')
+                        ->where('id', '=', $mensagem)
+                        ->update(['ativo' => '0']);
+        }
+        return($this->index());
+        //return view('mensagem');
     }
 }

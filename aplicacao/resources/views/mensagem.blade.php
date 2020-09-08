@@ -18,86 +18,65 @@
 @section('content')
     <!-- Page Content     -->
     <div class="content">
-    @isset($mensagens)
-        <div class="block">
-            <div class="block-header block-header-default bg-primary">
-                <h3 class="block-title text-white" >Disciplina: Arquitetura de Computadores</h3>
+    
+    @if (count($mensagens) > 0)
+    <div class="block">
+        <div class="block-header block-header-default">
+            <div class="block-title">
+                Caixa de Entrada <strong>({{ count($mensagens) }})</strong>
             </div>
-            <div class="block-content">
-                <p></p>
-            </div>
-            <!-- Table Alternativas -->
-            <form class="js-validation-bootstrap" method="post" action="/ganhe/">
+        </div>
+        <div class="block-content">
+            <form class="js-validation-bootstrap" method="post" action="/mensagens">
             @csrf
-            <div class="block">
-                <div class="block-content">
-                    <table class="table table-borderless table-striped">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input class="custom-control-input" type="radio" name="alternativa" id="alternativaa" value="a" unchecked required>
-                                        <label class="custom-control-label" for="alternativaa"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input class="custom-control-input" type="radio" name="alternativa" id="alternativab" value="b" unchecked>
-                                        <label class="custom-control-label" for="alternativab"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input class="custom-control-input" type="radio" name="alternativa" id="alternativac" value="c" unchecked>
-                                        <label class="custom-control-label" for="alternativac"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input class="custom-control-input" type="radio" name="alternativa" id="alternativad" value="d" unchecked>
-                                        <label class="custom-control-label" for="alternativad"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input class="custom-control-input" type="radio" name="alternativa" id="alternativae" value="e" unchecked>
-                                        <label class="custom-control-label" for="alternativae"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <!-- Messages Options -->
+            <div class="push">
+                <button type="submit" class="btn btn-rounded btn-alt-secondary float-right">
+                    <i class="fa fa-times text-danger mx-5"></i>
+                    <span class="d-none d-sm-inline"> Delete</span>
+                </button>
+                <p>&nbsp;</p>
             </div>
-            <!-- END Table Alternativas -->
-            <div class="block text-center">
-                <button type="submit" class="btn btn-alt-primary btn-rounded">Responder</button>
-            </div>
+            <!-- END Messages Options -->
+
+            <!-- Messages -->
+            <!-- Checkable Table (.js-table-checkable class is initialized in Helpers.tableToolsCheckable()) -->
+            <table class="js-table-checkable table table-hover table-vcenter">
+                <tbody>
+                @foreach ($mensagens as $mensagem)
+                    <tr>
+                        <td class="text-center" style="width: 40px;">
+                            <label class="css-control css-control-primary css-checkbox">
+                                <input type="checkbox" class="css-control-input" name="delmsg[]" value="{{ $mensagem->id }}">
+                                <span class="css-control-indicator"></span>
+                            </label>
+                        </td>
+                        <td class="d-none d-sm-table-cell font-w600" style="width: 140px;">{{ $mensagem->name }}</td>
+                            <td>
+                                <a class="font-w600" data-toggle="modal" data-target="#modal-message">{{ $mensagem->assunto }}</a>
+                                <div class="text-muted mt-5">{{ $mensagem->mensagem }}</div>
+                        </td>
+                        <td class="d-none d-xl-table-cell font-w600 font-size-sm text-muted" style="width: 120px;">{{ $mensagem->created_at }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            <!-- END Messages -->
             </form>
-            <p>&nbsp;</p>
         </div>
     </div>
-    <!-- END Page Content -->
+    <!-- END Message List -->
+
     @else
         <div class="block">
             <div class="block-header block-header-default bg-primary">
-                <h3 class="block-title text-white" >Parabéns :: Etapa Concluída!</h3>
+                <h3 class="block-title text-white" >Caixa de Entrada Vazia</h3>
             </div>
             <div class="block-content">
-                <p>Continue respondendo as perguntas e aproveite todos os benefícios que o sistema Points oferece!</p>
-                <p>Novas questões em breve!</p>
-                <p>Aguarde... </p>
+                <p>Não existem mensagens para você!</p>
             </div>
         </div>
 
-    @endisset
+    @endif
 
 @endsection

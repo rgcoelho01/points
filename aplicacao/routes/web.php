@@ -19,23 +19,17 @@ Route::get('/', function () {
 })->name('index');
 
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/teste', function () {
-    return view('teste');
-});
-
-Route::get('/datatables', function () {
-    return view('datatables');
-});
-
-
+Route::post('login','Auth\LoginController@login')->name('login');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::middleware('auth:sanctum')->get('/home','HomeController@index')->name('home');
 Route::middleware('auth:sanctum')->get('/ganhe','GanheController@index')->name('ganhe');
 Route::middleware('auth:sanctum')->get('/perfil','PerfilController@index')->name('perfil');
 Route::middleware('auth:sanctum')->get('/mensagens','MensagemController@index')->name('mensagens');
 Route::middleware('auth:sanctum')->post('/ganhe/{id}', 'GanheController@update');
 Route::middleware('auth:sanctum')->post('/perfil/{id}','PerfilController@update');
+Route::middleware('auth:sanctum')->post('/mensagens','MensagemController@delete');
 Route::middleware('auth:sanctum')->get('/cursos/read','CursoController@read');
 
 Route::middleware('auth:sanctum')->get('/duvidas', function () {
@@ -44,3 +38,7 @@ Route::middleware('auth:sanctum')->get('/duvidas', function () {
 Route::middleware('auth:sanctum')->get('/contato', function () {
     return view('contato');
 })->name('contato');
+Route::middleware('auth:sanctum')->post('/contato','ContatoController@index');
+
+//Route::middleware('auth:sanctum')->get('administrador','AdministradorController@index')->name('administrador');
+Route::middleware('role:administrador','auth:sanctum')->get('/administrador','AdministradorController@index')->name('administrador');

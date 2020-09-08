@@ -28,7 +28,8 @@
                 <div class="content content-full">
                     <div class="row justify-content-center py-30">
                         <div class="col-lg-8 col-xl-6">
-                            <form class="js-validation-be-contact" action="send_message.php" method="post">
+                            <form class="js-validation-be-contact" action="/contato" method="post">
+                            @csrf
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="becontactname">Nome</label>

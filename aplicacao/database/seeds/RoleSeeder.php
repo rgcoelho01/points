@@ -45,7 +45,7 @@ class RoleSeeder extends Seeder
         $role2->givePermissionTo('read questoes');
         $role2->givePermissionTo('create questoes');
 
-        $role3 = Role::create(['name' => 'admin']);
+        $role3 = Role::create(['name' => 'administrador']);
         $role3->givePermissionTo(Permission::all());
 
         // or may be done by chaining

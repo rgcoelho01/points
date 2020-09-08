@@ -15,8 +15,8 @@ class CreateMensagensTable extends Migration
     {
         Schema::create('mensagens', function (Blueprint $table) {
             $table->id();
-            $table->foreign('de_user_id')->references('id')->on('users');
-            $table->foreign('para_user_id')->references('id')->on('users');
+            $table->foreignId('de_user_id')->constrained('users');
+            $table->foreignId('para_user_id')->constrained('users');
             $table->string('assunto');
             $table->string('mensagem');
             $table->integer('ativo');

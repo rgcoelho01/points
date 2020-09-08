@@ -25,26 +25,31 @@ class GanheController extends Controller
             ->where('user_id', Auth::id())->first();
         $curso_id = $aluno->curso_id;
         
+
         // pega uma questão que começou e não finalizou
         $questao = DB::table('questoes')
-        ->where([['ativo', '=', '1'],['curso_id', '=', $curso_id]])
+        ->join('disciplinas','disciplinas.id','=', 'questoes.disciplina_id')
+        ->where([['ativo', '=', '1'],['questoes.curso_id', '=', $curso_id]])
         ->whereExists(function ($query) {
             $query->select(DB::raw(1))
                   ->from('respostas')
                   ->where([['resposta','=','0'],['user_id','=',Auth::id()]])
                   ->whereRaw('respostas.questoe_id = questoes.id');
         })
+        ->select('questoes.*','disciplinas.nome')
         ->first();
         if ($questao==null){
             //pega uma questao aleatoria que não viu e não respondeu
             $questao = DB::table('questoes')
-            ->where([['ativo', '=', '1'],['curso_id', '=', $curso_id]])
+            ->join('disciplinas','disciplinas.id','=', 'questoes.disciplina_id')
+            ->where([['ativo', '=', '1'],['questoes.curso_id', '=', $curso_id]])
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('respostas')
                     ->whereRaw('respostas.questoe_id = questoes.id');
                 })
             ->inRandomOrder()
+            ->select('questoes.*','disciplinas.nome')
             ->first();
             if ($questao!=null){
                 DB::table('respostas')->insert(
@@ -52,13 +57,16 @@ class GanheController extends Controller
                 );
             }
         }
-            return view('ganhe', ['questao' => $questao]);    
+        return view('ganhe', ['questao' => $questao]);    
     }
 
     public function update(Request $request, $id)
     {
         $questao = DB::table('questoes')
-            ->where([['ativo', '=', '1'],['id', $id]])->first();
+            ->join('disciplinas','disciplinas.id','=', 'questoes.disciplina_id')
+            ->where([['ativo', '=', '1'],['questoes.id', $id]])
+            ->select('questoes.*','disciplinas.nome')
+            ->first();
         $correta = $questao->correta;
         $acertou =0;
         if ($correta==$request->alternativa){
@@ -78,8 +86,8 @@ class GanheController extends Controller
         }
         //update tabela respostas
         $affected = DB::table('respostas')
-              ->where([['questoe_id', $id],['user_id',Auth::id()],['resposta','=','0']])
-              ->update(['acertou'=>$acertou, 'resposta' => $request->alternativa]);
+            ->where([['questoe_id', $id],['user_id',Auth::id()],['resposta','=','0']])
+            ->update(['acertou'=>$acertou, 'resposta' => $request->alternativa]);
         return view('ganheresp',['questao'=>$questao, 'respondida'=>$request->alternativa]);
     }
 }

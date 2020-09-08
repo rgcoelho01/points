@@ -31,21 +31,6 @@ class DashboardController extends Controller
         dd($sql);
         foreach ($sql as $user) {
         }
-/*                        $i =1;
-                       while ($row = $result->fetch_array(MYSQLI_BOTH)){
-                                if(strcasecmp($row["ra"],$this->ra)==0){
-                                        $array = array( 'posicao'=>$i);
-                                        $result->close();
-                                        $conn_bd->close();
-                                        return ($array);
-                                }
-                                $i++;
-                        }
-                        $result->close();
-                        $conn_bd->close();
-                        return false;
-*/
-        //return $this->sendData($cursos);
         return view('dashboard', ['aluno' => $aluno, 'alunos' => $top10, 'ranking' => $ranking]);
     }
 }

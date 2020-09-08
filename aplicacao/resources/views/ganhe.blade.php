@@ -21,7 +21,7 @@
     @isset($questao)
         <div class="block">
             <div class="block-header block-header-default bg-primary">
-                <h3 class="block-title text-white" >Disciplina: Arquitetura de Computadores</h3>
+                <h3 class="block-title text-white" >Disciplina: {{ $questao->nome }}</h3>
             </div>
             <div class="block-content">
                 <p>{{ $questao->enunciado }}</p>

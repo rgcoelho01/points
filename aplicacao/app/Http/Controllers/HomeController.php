@@ -27,6 +27,9 @@ class HomeController extends Controller
 
     public function index()
     {
+        if (Auth::user()->hasRole('administrador')){
+            return redirect()->route('administrador');
+        }
         $aluno = DB::table('alunos')
             ->where('user_id', Auth::id())->first();
         $curso_id = $aluno->curso_id;
@@ -55,7 +58,11 @@ class HomeController extends Controller
         $qr = DB::table('respostas')
             ->where([['ativo', '=', '1'],['curso_id', '=', $curso_id],['user_id', '=', Auth::id()]])
             ->count();
-        $qp = (int) ((100 * $qr) / $qt);
+        if($qt==0){
+            $qp =0;
+        } else {
+            $qp = (int) ((100 * $qr) / $qt);
+        }
         
            $progresso = (object)['qr'=>$qr,'qt'=>$qt,'qp'=>$qp];
 

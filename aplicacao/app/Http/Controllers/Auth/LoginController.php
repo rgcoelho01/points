@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Aluno;
+use App\User;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+
 
 class LoginController extends Controller
 {
@@ -64,6 +66,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         } else{
+
             $credentials = $request->only('cpf', 'password');
             $response = Http::post('https://suap.uenp.edu.br/api/v2/autenticacao/token/',[
                 'username' => $request->cpf,
@@ -78,6 +81,15 @@ class LoginController extends Controller
                     'password' => Hash::make($request->password),
                 ]);
                 $user->assignRole('aluno');
+                $aluno = Aluno::Create([
+                    'user_id' => $user->id,
+                    'curso_id' => 1,
+                    'acertos' => 0,
+                    'erros' => 0,
+                    'pontos' => 0,
+                    'ativo' => 1
+                ]);
+                //TODO ->Cadastrar o curso do aluno
                 if ($this->attemptLogin($request)) {
                     return $this->sendLoginResponse($request);
                 }
@@ -89,4 +101,6 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);        
     }
+
+    
 }
