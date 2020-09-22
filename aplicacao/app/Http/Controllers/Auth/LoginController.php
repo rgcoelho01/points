@@ -83,7 +83,7 @@ class LoginController extends Controller
                 $user->assignRole('aluno');
                 $aluno = Aluno::Create([
                     'user_id' => $user->id,
-                    'curso_id' => 1,
+                    'curso_id' => 3,
                     'acertos' => 0,
                     'erros' => 0,
                     'pontos' => 0,

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Disciplina extends Model
 {
 
+    protected $table = 'disciplinas';
     protected $fillable = ['nome', 'curso_id'];
 
     public function questoes()
